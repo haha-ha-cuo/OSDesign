@@ -1,0 +1,9 @@
+# CLion
+.idea/
+
+# CMake build output
+cmake-build-*/
+build/
+
+# macOS
+.DS_Store
