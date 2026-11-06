@@ -28,6 +28,7 @@
 
 - **语言**：C++20
 - **构建工具**：CMake 3.20+
+- **代码格式化**：clang-format
 - **编译器**：GCC 11+、Clang 14+ 或 MSVC 19.30+
 - **第三方依赖**：无
 
@@ -101,6 +102,26 @@ i = 5
 | CMake 版本过低 | 升级到 3.20 及以上版本 |
 | 编译器不支持 C++20 | 升级 GCC/Clang/MSVC，或在 IDE 中切换工具链 |
 | macOS 提示缺少编译工具 | 执行 `xcode-select --install` 安装命令行工具 |
+
+### 代码格式化
+
+项目使用 [clang-format](https://clang.llvm.org/docs/ClangFormat.html) 统一 C++ 代码风格，
+规则定义在根目录的 `.clang-format` 中。格式化通过 CMake 目标执行：
+
+```bash
+# 格式化 include/、src/、tests/ 下的全部 C++ 源码
+cmake --build build --target format
+
+# 只检查格式是否符合规范，不修改文件
+cmake --build build --target format-check
+```
+
+CMake 会优先使用 `-DCLANG_FORMAT_EXECUTABLE=<path>` 指定的版本，未指定时在 `PATH` 中查找；
+macOS 上若找不到，会自动回退到 Xcode 自带的 clang-format。也可以手动安装：
+
+- **macOS**：`brew install clang-format`
+- **Ubuntu / Debian**：`sudo apt install clang-format`
+- **Windows**：安装 LLVM，并确保 `clang-format.exe` 位于 `PATH` 中
 
 ## 组队与分工
 

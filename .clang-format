@@ -1,0 +1,26 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+Standard: c++20
+
+# 与项目现有风格保持一致：4 空格缩进、行宽 100。
+IndentWidth: 4
+ContinuationIndentWidth: 4
+ConstructorInitializerIndentWidth: 4
+AccessModifierOffset: -4
+ColumnLimit: 100
+
+PointerAlignment: Left
+DerivePointerAlignment: false
+BreakTemplateDeclarations: Yes
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Always
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: true
+IndentCaseLabels: true
+BreakBeforeBraces: Attach
+FixNamespaceComments: true
+ReflowComments: false
+AlignTrailingComments: false
+SortIncludes: CaseSensitive
+IncludeBlocks: Preserve

@@ -12,26 +12,25 @@
 #include <utility>
 
 namespace {
-template<typename T>
+template <typename T>
 void addUnique(std::vector<T>& values, const T& value) {
     if (std::find(values.begin(), values.end(), value) == values.end()) {
         values.push_back(value);
     }
 }
 
-template<typename T>
+template <typename T>
 bool removeValue(std::vector<T>& values, const T& value) {
     return std::erase(values, value) != 0;
 }
-}
+} // namespace
 
-ProcessControlBlock::ProcessControlBlock(int pid, std::string name, int burstTime,
-                                       int priority, int ppid, int arrivalTime)
+ProcessControlBlock::ProcessControlBlock(int pid, std::string name, int burstTime, int priority,
+                                         int ppid, int arrivalTime)
     : pid_(pid), ppid_(ppid), name_(std::move(name)), priority_(priority),
       arrivalTime_(arrivalTime), burstTime_(burstTime), remainingTime_(burstTime),
       lastTime_(arrivalTime) {
-    if (pid < 0 || ppid < -1 || pid == ppid || name_.empty() ||
-        burstTime < 0 || arrivalTime < 0) {
+    if (pid < 0 || ppid < -1 || pid == ppid || name_.empty() || burstTime < 0 || arrivalTime < 0) {
         throw std::invalid_argument("Invalid process identity or timing parameters");
     }
 }
@@ -255,10 +254,10 @@ std::string ProcessControlBlock::toString() const {
     output << "PCB{pid=" << pid_ << ", ppid=" << ppid_ << ", name=" << name_
            << ", state=" << stateToString(state_) << ", priority=" << priority_
            << ", arrival=" << arrivalTime_ << ", burst=" << burstTime_
-           << ", remaining=" << remainingTime_ << ", cpu=" << cpuTime_
-           << ", wait=" << waitTime_ << ", slice=" << remainingTimeSlice_
-           << '/' << timeSlice_ << ", memoryBase=" << memoryBase_
-           << ", memorySize=" << memorySize_ << ", swapped=" << std::boolalpha << isSwapped_;
+           << ", remaining=" << remainingTime_ << ", cpu=" << cpuTime_ << ", wait=" << waitTime_
+           << ", slice=" << remainingTimeSlice_ << '/' << timeSlice_
+           << ", memoryBase=" << memoryBase_ << ", memorySize=" << memorySize_
+           << ", swapped=" << std::boolalpha << isSwapped_;
     if (startTime_) output << ", start=" << *startTime_;
     if (finishTime_) output << ", finish=" << *finishTime_;
     if (exitCode_) output << ", exitCode=" << *exitCode_;

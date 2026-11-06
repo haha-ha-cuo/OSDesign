@@ -13,7 +13,7 @@ void check(bool condition, const char* message) {
     if (!condition) throw std::runtime_error(message);
 }
 
-template<typename Exception, typename Action>
+template <typename Exception, typename Action>
 void expectThrow(Action action) {
     try {
         action();
@@ -29,7 +29,8 @@ void testLifecycleAndScheduling() {
           "Process identity");
     check(pcb.getState() == State::New && pcb.getPriority() == 2, "Initial state");
     check(!pcb.getStartTime() && !pcb.getFinishTime() && !pcb.getExitCode() &&
-          !pcb.getTurnaroundTime(), "Unset timestamps and exit code");
+              !pcb.getTurnaroundTime(),
+          "Unset timestamps and exit code");
     pcb.setPriority(-1);
     check(pcb.getPriority() == -1, "Priority update");
     expectThrow<std::logic_error>([&] { pcb.setRunning(3); });
@@ -52,8 +53,9 @@ void testLifecycleAndScheduling() {
     expectThrow<std::invalid_argument>([&] { pcb.terminate(10); });
     pcb.terminate(11);
     check(pcb.isTerminated() && pcb.getExitCode() == 0, "Termination");
-    check(pcb.getStartTime() == 5 && pcb.getFinishTime() == 11 &&
-          pcb.getTurnaroundTime() == 8 && pcb.getWaitTime() == 3, "Timing statistics");
+    check(pcb.getStartTime() == 5 && pcb.getFinishTime() == 11 && pcb.getTurnaroundTime() == 8 &&
+              pcb.getWaitTime() == 3,
+          "Timing statistics");
     expectThrow<std::logic_error>([&] { pcb.setReady(); });
     expectThrow<std::logic_error>([&] { pcb.setRunning(11); });
     expectThrow<std::logic_error>([&] { pcb.terminate(11); });
@@ -81,7 +83,7 @@ void testBlockingAndSuspension() {
     pcb.suspend();
     pcb.wakeup();
     check(pcb.isSuspended() && pcb.getSuspendedState() == State::Ready &&
-          pcb.getBlockedReason().empty() && !pcb.getWaitingResource(),
+              pcb.getBlockedReason().empty() && !pcb.getWaitingResource(),
           "Wakeup must not activate a suspended process");
     pcb.resume();
     pcb.setRunning(4);
@@ -108,7 +110,8 @@ void testContextAndBookkeeping() {
     pcb.setPageTable({2, 4, 6});
     pcb.setSwapped(true);
     check(pcb.getMemoryBase() == 1024 && pcb.getMemorySize() == 4096 &&
-          pcb.getPageTable().size() == 3 && pcb.isSwapped(), "Memory metadata");
+              pcb.getPageTable().size() == 3 && pcb.isSwapped(),
+          "Memory metadata");
     pcb.addResource(1);
     pcb.addResource(1);
     pcb.addChild(4);
@@ -116,7 +119,8 @@ void testContextAndBookkeeping() {
     pcb.addOpenFile("data.txt");
     pcb.addOpenFile("data.txt");
     check(pcb.getHeldResources().size() == 1 && pcb.getChildren().size() == 1 &&
-          pcb.getOpenFiles().size() == 1, "Unique bookkeeping entries");
+              pcb.getOpenFiles().size() == 1,
+          "Unique bookkeeping entries");
     pcb.setWaitingResource(2);
     pcb.clearWaitingResource();
     check(!pcb.getWaitingResource(), "Clear resource wait");
@@ -127,12 +131,14 @@ void testContextAndBookkeeping() {
     check(pcb.removeChild(4) && !pcb.removeChild(4), "Child cleanup");
     check(pcb.removeOpenFile("data.txt") && !pcb.removeOpenFile("data.txt"), "File cleanup");
     pcb.clearMemoryInfo();
-    check(pcb.getMemorySize() == 0 && pcb.getMemoryBase() == 0 &&
-          pcb.getPageTable().empty() && !pcb.isSwapped(), "Memory cleanup");
+    check(pcb.getMemorySize() == 0 && pcb.getMemoryBase() == 0 && pcb.getPageTable().empty() &&
+              !pcb.isSwapped(),
+          "Memory cleanup");
     std::ostringstream output;
     pcb.print(output);
     check(output.str() == pcb.toString() + '\n' &&
-          output.str().find("Terminated") != std::string::npos, "Printable state");
+              output.str().find("Terminated") != std::string::npos,
+          "Printable state");
 }
 
 void testInvalidArgumentsAndBoundaries() {
@@ -149,9 +155,8 @@ void testInvalidArgumentsAndBoundaries() {
     expectThrow<std::invalid_argument>([&] { pcb.addChild(4); });
     expectThrow<std::invalid_argument>([&] { pcb.addOpenFile(""); });
     expectThrow<std::invalid_argument>([&] { pcb.setMemoryInfo(0, 0); });
-    expectThrow<std::invalid_argument>([&] {
-        pcb.setMemoryInfo(std::numeric_limits<std::uint64_t>::max(), 2);
-    });
+    expectThrow<std::invalid_argument>(
+        [&] { pcb.setMemoryInfo(std::numeric_limits<std::uint64_t>::max(), 2); });
     expectThrow<std::logic_error>([&] { pcb.updateRuntime(1); });
     expectThrow<std::logic_error>([&] { pcb.updateWaitTime(1); });
     pcb.setReady();
@@ -179,7 +184,7 @@ void testInvalidArgumentsAndBoundaries() {
     check(limit.getCpuTime() == 0 && limit.getRemainingTime() == 2,
           "Overflow must leave state unchanged");
 }
-}
+} // namespace
 
 int main() {
     try {

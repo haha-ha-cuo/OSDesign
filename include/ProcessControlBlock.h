@@ -26,8 +26,8 @@ public:
     };
 
     // 时间单位为模拟时钟 tick；PID 的全局唯一性由进程管理器保证。
-    ProcessControlBlock(int pid, std::string name, int burstTime,
-                        int priority = 0, int ppid = -1, int arrivalTime = 0);
+    ProcessControlBlock(int pid, std::string name, int burstTime, int priority = 0, int ppid = -1,
+                        int arrivalTime = 0);
 
     int getPid() const { return pid_; }
     int getParentPid() const { return ppid_; }
@@ -136,6 +136,5 @@ private:
     std::vector<int> children_;
     std::vector<std::string> openFiles_;
 };
-
 
 #endif //OSDESIGN_PROCESSCONTROLBLOCK_H
