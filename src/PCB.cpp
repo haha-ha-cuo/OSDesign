@@ -2,7 +2,7 @@
 // Created by YuHao Shi on 2026/11/6.
 //
 
-#include "../include/ProcessControlBlock.h"
+#include "../include/PCB.h"
 
 #include <algorithm>
 #include <iostream>
@@ -25,7 +25,7 @@ bool removeValue(std::vector<T>& values, const T& value) {
 }
 } // namespace
 
-ProcessControlBlock::ProcessControlBlock(int pid, std::string name, int burstTime, int priority,
+PCB::PCB(int pid, std::string name, int burstTime, int priority,
                                          int ppid, int arrivalTime)
     : pid_(pid), ppid_(ppid), name_(std::move(name)), priority_(priority),
       arrivalTime_(arrivalTime), burstTime_(burstTime), remainingTime_(burstTime),
@@ -35,20 +35,20 @@ ProcessControlBlock::ProcessControlBlock(int pid, std::string name, int burstTim
     }
 }
 
-void ProcessControlBlock::setReady() {
+void PCB::setReady() {
     if (state_ != ProcessState::New && state_ != ProcessState::Running && !isReady()) {
         throw std::logic_error("Only new, running or ready processes can become ready");
     }
     state_ = ProcessState::Ready;
 }
 
-void ProcessControlBlock::validateCurrentTime(int currentTime) const {
+void PCB::validateCurrentTime(int currentTime) const {
     if (currentTime < lastTime_) {
         throw std::invalid_argument("Current time cannot precede the process clock");
     }
 }
 
-void ProcessControlBlock::setRunning(int currentTime) {
+void PCB::setRunning(int currentTime) {
     if (!isReady() || isFinished()) {
         throw std::logic_error("Only a ready process with remaining work can run");
     }
@@ -60,7 +60,7 @@ void ProcessControlBlock::setRunning(int currentTime) {
     state_ = ProcessState::Running;
 }
 
-void ProcessControlBlock::setBlocked(const std::string& reason) {
+void PCB::setBlocked(const std::string& reason) {
     if (!isRunning()) {
         throw std::logic_error("Only a running process can block");
     }
@@ -71,7 +71,7 @@ void ProcessControlBlock::setBlocked(const std::string& reason) {
     state_ = ProcessState::Blocked;
 }
 
-void ProcessControlBlock::wakeup() {
+void PCB::wakeup() {
     if (isBlocked()) {
         state_ = ProcessState::Ready;
     } else if (isSuspended() && suspendedState_ == ProcessState::Blocked) {
@@ -84,7 +84,7 @@ void ProcessControlBlock::wakeup() {
     waitingResource_.reset();
 }
 
-void ProcessControlBlock::suspend() {
+void PCB::suspend() {
     if (!isReady() && !isBlocked()) {
         throw std::logic_error("Only ready or blocked processes can be suspended");
     }
@@ -92,7 +92,7 @@ void ProcessControlBlock::suspend() {
     state_ = ProcessState::Suspended;
 }
 
-void ProcessControlBlock::resume() {
+void PCB::resume() {
     if (!isSuspended()) {
         throw std::logic_error("Only a suspended process can be resumed");
     }
@@ -100,7 +100,7 @@ void ProcessControlBlock::resume() {
     suspendedState_.reset();
 }
 
-void ProcessControlBlock::terminate(int currentTime, int exitCode) {
+void PCB::terminate(int currentTime, int exitCode) {
     if (isTerminated()) {
         throw std::logic_error("Process is already terminated");
     }
@@ -116,14 +116,14 @@ void ProcessControlBlock::terminate(int currentTime, int exitCode) {
     // 不清空资源/内存记录，进程管理器仍需依据这些记录执行回收。
 }
 
-std::optional<int> ProcessControlBlock::getTurnaroundTime() const {
+std::optional<int> PCB::getTurnaroundTime() const {
     if (!finishTime_) {
         return std::nullopt;
     }
     return *finishTime_ - arrivalTime_;
 }
 
-void ProcessControlBlock::resetTimeSlice(int slice) {
+void PCB::resetTimeSlice(int slice) {
     if (isTerminated()) {
         throw std::logic_error("Cannot assign a time slice to a terminated process");
     }
@@ -134,7 +134,7 @@ void ProcessControlBlock::resetTimeSlice(int slice) {
     remainingTimeSlice_ = slice;
 }
 
-void ProcessControlBlock::updateRuntime(int ticks) {
+void PCB::updateRuntime(int ticks) {
     if (!isRunning()) {
         throw std::logic_error("Only a running process can consume CPU time");
     }
@@ -155,7 +155,7 @@ void ProcessControlBlock::updateRuntime(int ticks) {
     }
 }
 
-bool ProcessControlBlock::consumeTimeSlice() {
+bool PCB::consumeTimeSlice() {
     if (timeSlice_ == 0) {
         throw std::logic_error("No time slice has been assigned");
     }
@@ -163,7 +163,7 @@ bool ProcessControlBlock::consumeTimeSlice() {
     return remainingTimeSlice_ == 0;
 }
 
-void ProcessControlBlock::updateWaitTime(int ticks) {
+void PCB::updateWaitTime(int ticks) {
     if (!isReady()) {
         throw std::logic_error("Only ready processes accumulate ready-queue wait time");
     }
@@ -178,7 +178,7 @@ void ProcessControlBlock::updateWaitTime(int ticks) {
     lastTime_ += ticks;
 }
 
-void ProcessControlBlock::setMemoryInfo(std::uint64_t base, std::size_t size) {
+void PCB::setMemoryInfo(std::uint64_t base, std::size_t size) {
     if (size == 0 || size - 1 > std::numeric_limits<std::uint64_t>::max() - base) {
         throw std::invalid_argument("Invalid memory range");
     }
@@ -186,58 +186,58 @@ void ProcessControlBlock::setMemoryInfo(std::uint64_t base, std::size_t size) {
     memorySize_ = size;
 }
 
-void ProcessControlBlock::clearMemoryInfo() {
+void PCB::clearMemoryInfo() {
     memoryBase_ = 0;
     memorySize_ = 0;
     pageTable_.clear();
     isSwapped_ = false;
 }
 
-void ProcessControlBlock::setPageTable(std::vector<std::size_t> pageTable) {
+void PCB::setPageTable(std::vector<std::size_t> pageTable) {
     pageTable_ = std::move(pageTable);
 }
 
-void ProcessControlBlock::addResource(int resourceId) {
+void PCB::addResource(int resourceId) {
     if (resourceId < 0) {
         throw std::invalid_argument("Resource ID cannot be negative");
     }
     addUnique(heldResources_, resourceId);
 }
 
-bool ProcessControlBlock::releaseResource(int resourceId) {
+bool PCB::releaseResource(int resourceId) {
     return removeValue(heldResources_, resourceId);
 }
 
-void ProcessControlBlock::setWaitingResource(int resourceId) {
+void PCB::setWaitingResource(int resourceId) {
     if (resourceId < 0) {
         throw std::invalid_argument("Resource ID cannot be negative");
     }
     waitingResource_ = resourceId;
 }
 
-void ProcessControlBlock::addChild(int pid) {
+void PCB::addChild(int pid) {
     if (pid < 0 || pid == pid_) {
         throw std::invalid_argument("Invalid child PID");
     }
     addUnique(children_, pid);
 }
 
-bool ProcessControlBlock::removeChild(int pid) {
+bool PCB::removeChild(int pid) {
     return removeValue(children_, pid);
 }
 
-void ProcessControlBlock::addOpenFile(const std::string& filename) {
+void PCB::addOpenFile(const std::string& filename) {
     if (filename.empty()) {
         throw std::invalid_argument("Filename cannot be empty");
     }
     addUnique(openFiles_, filename);
 }
 
-bool ProcessControlBlock::removeOpenFile(const std::string& filename) {
+bool PCB::removeOpenFile(const std::string& filename) {
     return removeValue(openFiles_, filename);
 }
 
-std::string_view ProcessControlBlock::stateToString(ProcessState state) {
+std::string_view PCB::stateToString(ProcessState state) {
     switch (state) {
         case ProcessState::New: return "New";
         case ProcessState::Ready: return "Ready";
@@ -249,7 +249,7 @@ std::string_view ProcessControlBlock::stateToString(ProcessState state) {
     return "Unknown";
 }
 
-std::string ProcessControlBlock::toString() const {
+std::string PCB::toString() const {
     std::ostringstream output;
     output << "PCB{pid=" << pid_ << ", ppid=" << ppid_ << ", name=" << name_
            << ", state=" << stateToString(state_) << ", priority=" << priority_
@@ -267,10 +267,10 @@ std::string ProcessControlBlock::toString() const {
     return output.str();
 }
 
-void ProcessControlBlock::print(std::ostream& output) const {
+void PCB::print(std::ostream& output) const {
     output << toString() << '\n';
 }
 
-void ProcessControlBlock::print() const {
+void PCB::print() const {
     print(std::cout);
 }

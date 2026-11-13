@@ -1,6 +1,6 @@
 # 进程控制块（PCB）
 
-`include/ProcessControlBlock.h` 定义 PCB，`src/ProcessControlBlock.cpp` 实现。
+`../include/PCB.h` 定义 PCB，`../src/PCB.cpp` 实现。
 PCB 保存进程信息，不负责创建真实进程、执行调度、分配内存或进行文件 I/O。
 
 ## 属性

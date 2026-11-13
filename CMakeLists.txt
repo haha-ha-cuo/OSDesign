@@ -6,8 +6,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(PROJECT_SOURCES
         src/main.cpp
-        src/ProcessControlBlock.cpp
-        include/ProcessControlBlock.h)
+        src/PCB.cpp
+        include/PCB.h
+        src/FCFS.cpp
+        include/FCFS.h)
 
 add_executable(OSDesign ${PROJECT_SOURCES})
 
@@ -15,7 +17,7 @@ include(CTest)
 if(BUILD_TESTING)
     add_executable(ProcessControlBlockTest
             tests/ProcessControlBlockTest.cpp
-            src/ProcessControlBlock.cpp)
+            src/PCB.cpp)
     add_test(NAME ProcessControlBlockTest COMMAND ProcessControlBlockTest)
 endif()
 

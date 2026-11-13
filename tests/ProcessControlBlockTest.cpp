@@ -1,4 +1,4 @@
-#include "../include/ProcessControlBlock.h"
+#include "../include/PCB.h"
 
 #include <iostream>
 #include <limits>
@@ -6,7 +6,7 @@
 #include <stdexcept>
 
 namespace {
-using PCB = ProcessControlBlock;
+using PCB = PCB;
 using State = PCB::ProcessState;
 
 void check(bool condition, const char* message) {
