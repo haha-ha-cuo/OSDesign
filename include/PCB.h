@@ -29,6 +29,8 @@ public:
     PCB(int pid, std::string name, int burstTime, int priority = 0, int ppid = -1,
                         int arrivalTime = 0);
 
+    PCB fork(int childPid,std::string childName,int childBurst) const;
+
     int getPid() const { return pid_; }
     int getParentPid() const { return ppid_; }
     const std::string& getName() const { return name_; }
@@ -90,6 +92,7 @@ public:
     void setWaitingResource(int resourceId);
     void clearWaitingResource() { waitingResource_.reset(); }
     std::optional<int> getWaitingResource() const { return waitingResource_; }
+    bool isWaitingForResource() const { return waitingResource_.has_value(); }
     void addChild(int pid);
     bool removeChild(int pid);
     const std::vector<int>& getChildren() const { return children_; }

@@ -35,9 +35,19 @@ PCB::PCB(int pid, std::string name, int burstTime, int priority,
     }
 }
 
+PCB PCB::fork(int childPid, std::string childName, int childBurst) const {
+    return PCB(childPid, std::move(childName), childBurst, priority_,pid_,lastTime_);
+}
+
 void PCB::setReady() {
-    if (state_ != ProcessState::New && state_ != ProcessState::Running && !isReady()) {
-        throw std::logic_error("Only new, running or ready processes can become ready");
+    switch (state_) {
+        case ProcessState::New:
+        case ProcessState::Running:
+            break;
+        case ProcessState::Ready:
+            return;
+        default:
+            throw std::logic_error("Only new, running or ready processes can become ready");
     }
     state_ = ProcessState::Ready;
 }
@@ -96,7 +106,7 @@ void PCB::resume() {
     if (!isSuspended()) {
         throw std::logic_error("Only a suspended process can be resumed");
     }
-    state_ = suspendedState_.value();
+    state_ = suspendedState_.value_or(ProcessState::Ready);
     suspendedState_.reset();
 }
 
@@ -111,7 +121,7 @@ void PCB::terminate(int currentTime, int exitCode) {
     state_ = ProcessState::Terminated;
     suspendedState_.reset();
     blockedReason_.clear();
-    waitingResource_.reset();
+    //waitingResource_.reset();
     remainingTimeSlice_ = 0;
     // 不清空资源/内存记录，进程管理器仍需依据这些记录执行回收。
 }
