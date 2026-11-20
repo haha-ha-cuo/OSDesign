@@ -4,6 +4,12 @@ project(OSDesign)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# MinGW 默认动态链接 libstdc++/libgcc，直接运行产物会因找不到这些 DLL 而启动失败。
+# 这里静态链接这两个运行库；libwinpthread 在该工具链下无法静态链接，改为复制到产物旁边。
+if(MINGW)
+    add_link_options(-static-libgcc -static-libstdc++)
+endif()
+
 set(PROJECT_SOURCES
         src/main.cpp
         src/PCB.cpp
@@ -19,6 +25,20 @@ set(PROJECT_SOURCES
         include/MLFQ.h)
 
 add_executable(OSDesign ${PROJECT_SOURCES})
+
+# 把 MinGW 仍需动态加载的运行库复制到可执行文件旁，使 exe 可以直接双击运行。
+if(MINGW)
+    get_filename_component(MINGW_BIN_DIR "${CMAKE_CXX_COMPILER}" DIRECTORY)
+    foreach(RUNTIME_DLL libwinpthread-1.dll libgcc_s_seh-1.dll libstdc++-6.dll)
+        if(EXISTS "${MINGW_BIN_DIR}/${RUNTIME_DLL}")
+            add_custom_command(TARGET OSDesign POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                    "${MINGW_BIN_DIR}/${RUNTIME_DLL}"
+                    "$<TARGET_FILE_DIR:OSDesign>"
+                    COMMENT "Copying ${RUNTIME_DLL} next to OSDesign.exe")
+        endif()
+    endforeach()
+endif()
 
 include(CTest)
 if(BUILD_TESTING)
