@@ -2,9 +2,11 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <string>
+#include <vector>
 
 namespace {
-void check(bool condition, const char* message) {
+void check(bool condition, const std::string& message) {
     if (!condition) throw std::runtime_error(message);
 }
 
@@ -18,153 +20,297 @@ void expectThrow(Action action) {
     throw std::runtime_error("Expected exception was not thrown");
 }
 
-void testReceiveAndDispatch() {
-    CLOCK clock;
-    CPU cpu(0, clock);
-    MLFQ mlfq(cpu, 2);
-    check(mlfq.timePiece == 2, "Store configured time piece");
-    expectThrow<std::invalid_argument>([&] { MLFQ invalid(cpu, 0); });
+struct Segment {
+    int pid;
+    int level;
+    int start;
+    int end;
+};
 
-    PCB process(1, "worker", 3);
-    mlfq.receivePCB(process);
-    check(process.isReady(), "New process becomes ready on receive");
-    check(mlfq.Ready_processes1.size() == 1, "Received process enters the top queue");
-    expectThrow<std::invalid_argument>([&] { mlfq.receivePCB(process, 0); });
-    expectThrow<std::invalid_argument>([&] { mlfq.receivePCB(process, 6); });
-
-    check(mlfq.ProcessShifter(), "Dispatch from the top queue");
-    check(cpu.getCurrentProcess() == &process && process.isRunning(),
-          "CPU loads the same PCB instance");
-    check(mlfq.Ready_processes1.empty(), "Dispatched process leaves the ready queue");
-    check(!mlfq.ProcessShifter(), "Busy CPU must not dispatch another process");
-    expectThrow<std::logic_error>([&] { mlfq.receivePCB(process); });
-
-    check(cpu.release() == &process && process.isReady(), "Preempt keeps the PCB reusable");
-    mlfq.receivePCB(process);
-    check(mlfq.ProcessShifter(), "Dispatch the preempted process again");
-    check(cpu.release() == &process, "Release after re-dispatch");
+void checkSegments(const std::vector<Segment>& segments,
+                   const std::vector<std::vector<int>>& expected) {
+    check(segments.size() == expected.size(), "Execution segment count");
+    for (std::size_t i = 0; i < expected.size(); ++i) {
+        check(segments[i].pid == expected[i][0] && segments[i].level == expected[i][1] &&
+                  segments[i].start == expected[i][2] && segments[i].end == expected[i][3],
+              "Execution segment mismatch at index " + std::to_string(i));
+    }
 }
 
-void testHighestPriorityAndFcfs() {
-    CLOCK clock;
-    CPU cpu(0, clock);
-    MLFQ mlfq(cpu, 4);
-
-    PCB low(1, "low", 2);
-    PCB highFirst(2, "high-first", 2);
-    PCB highSecond(3, "high-second", 2);
-    mlfq.receivePCB(low, 5);
-    mlfq.receivePCB(highFirst, 2);
-    mlfq.receivePCB(highSecond, 2);
-    check(mlfq.Ready_processes5.size() == 1 && mlfq.Ready_processes2.size() == 2,
-          "Processes enter their requested queues");
-
-    check(mlfq.ProcessShifter(), "Pick the highest-priority non-empty queue");
-    check(cpu.getCurrentProcess() == &highFirst, "FIFO order inside one queue");
-    check(mlfq.Ready_processes2.size() == 1 && mlfq.Ready_processes5.size() == 1,
-          "Only the dispatched process is removed");
-    check(cpu.release() == &highFirst, "Release first high-priority process");
-
-    check(mlfq.ProcessShifter(), "Continue with the same queue");
-    check(cpu.getCurrentProcess() == &highSecond, "Second process of the queue runs next");
-    check(mlfq.Ready_processes2.empty() && mlfq.Ready_processes5.size() == 1,
-          "Lower queue still waits");
-    check(cpu.release() == &highSecond, "Release second high-priority process");
-
-    check(mlfq.ProcessShifter(), "Fall back to the lower queue when higher ones are empty");
-    check(cpu.getCurrentProcess() == &low, "Lowest queue process finally runs");
-    check(cpu.release() == &low, "Release the last process");
-}
-
-void testTimeSliceExpiryAndDemotion() {
-    CLOCK clock;
-    CPU cpu(0, clock);
-    MLFQ mlfq(cpu, 2);
-    PCB process(1, "batch", 5);
-
-    mlfq.receivePCB(process);
-    check(mlfq.ProcessShifter(), "Dispatch the first slice");
-    check(cpu.tick() == CPU::TickResult::Running, "First tick of the slice");
-    clock.advance();
-    check(cpu.tick() == CPU::TickResult::TimeSliceExpired, "Second tick exhausts the slice");
-    clock.advance();
-    check(process.getCpuTime() == 2 && process.getRemainingTime() == 3,
-          "Only executed ticks are counted");
-    check(cpu.release() == &process && process.isReady(), "Release the expired process");
-
-    mlfq.receivePCB(process, 2);
-    check(mlfq.Ready_processes1.empty() && mlfq.Ready_processes2.size() == 1,
-          "Demote to the next queue");
-    check(mlfq.ProcessShifter(), "Dispatch from the lower queue");
-    check(process.getRemainingTimeSlice() == 2, "Time slice is reset for the new queue");
-
-    while (!process.isFinished()) {
-        const auto result = cpu.tick();
-        clock.advance();
-        if (result == CPU::TickResult::Finished) {
-            process.terminate(clock.now());
-            cpu.release();
-        } else if (result == CPU::TickResult::TimeSliceExpired) {
-            cpu.release();
-            mlfq.receivePCB(process, 3);
-            check(mlfq.ProcessShifter(), "Re-dispatch after another expiry");
+PCB* findByPid(const std::vector<PCB*>& processes, int pid) {
+    for (PCB* process : processes) {
+        if (process->getPid() == pid) {
+            return process;
         }
     }
-    check(process.isTerminated() && cpu.isIdle(), "Finished process leaves the CPU");
-    check(process.getCpuTime() == 5 && process.getRemainingTime() == 0,
-          "All work is accounted for");
-    check(!mlfq.ProcessShifter(), "Empty scheduler does nothing");
+    return nullptr;
 }
 
-void testRejectInvalidProcesses() {
+// 按调用方职责驱动 CPU：派发 -> tick -> 推进时钟 -> 处理完成/时间片耗尽。
+std::vector<Segment> runToCompletion(CLOCK& clock, CPU& cpu, MLFQ& mlfq,
+                                     const std::vector<PCB*>& processes) {
+    std::vector<Segment> segments;
+    PCB* running = nullptr;
+    while (true) {
+        if (running == nullptr) {
+            if (!mlfq.ProcessShifter()) {
+                break;
+            }
+            running = findByPid(processes, cpu.getCurrentProcess()->getPid());
+        }
+        const int pid = running->getPid();
+        const int level = mlfq.getLevelOf(pid);
+        const int now = clock.now();
+        const CPU::TickResult result = cpu.tick();
+        if (!segments.empty() && segments.back().pid == pid && segments.back().level == level &&
+            segments.back().end == now) {
+            segments.back().end = now + 1;
+        } else {
+            segments.push_back({pid, level, now, now + 1});
+        }
+        clock.advance();
+
+        if (result == CPU::TickResult::Finished) {
+            running->terminate(clock.now());
+            cpu.release();
+            mlfq.ProcessFinished(*running);
+            running = nullptr;
+        } else if (result == CPU::TickResult::TimeSliceExpired) {
+            cpu.release();
+            mlfq.TimeSliceExpired(*running);
+            running = nullptr;
+        }
+    }
+    return segments;
+}
+
+void testReceiveAndValidation() {
     CLOCK clock;
     CPU cpu(0, clock);
-    MLFQ mlfq(cpu, 4);
+    MLFQ mlfq(cpu, 2);
+    check(mlfq.getReadyCount() == 0 && mlfq.getLevelOf(1) == -1, "New MLFQ is empty");
 
-    PCB running(1, "running", 2);
-    running.setReady();
-    cpu.dispatch(running);
-    expectThrow<std::logic_error>([&] { mlfq.receivePCB(running); });
-    running.setBlocked("I/O");
-    cpu.release();
-    expectThrow<std::logic_error>([&] { mlfq.receivePCB(running); });
+    PCB first(1, "P1", 3);
+    mlfq.receivePCB(first);
+    check(first.isReady() && mlfq.getLevelOf(1) == 1 && mlfq.getQueueSize(1) == 1,
+          "New process enters level 1 and becomes ready");
+    expectThrow<std::logic_error>([&] { mlfq.receivePCB(first); });
+    expectThrow<std::invalid_argument>([&] { mlfq.receivePCB(first, 0); });
+    expectThrow<std::invalid_argument>([&] { mlfq.receivePCB(first, 6); });
 
-    PCB terminated(2, "terminated", 1);
+    PCB zero(2, "zero", 0);
+    expectThrow<std::logic_error>([&] { mlfq.receivePCB(zero); });
+
+    PCB terminated(3, "done", 1);
+    terminated.setReady();
     terminated.terminate(0);
     expectThrow<std::logic_error>([&] { mlfq.receivePCB(terminated); });
 
-    check(mlfq.Ready_processes1.empty(), "Rejected processes are not queued");
+    PCB running(4, "run", 3);
+    running.setReady();
+    cpu.dispatch(running);
+    expectThrow<std::logic_error>([&] { mlfq.receivePCB(running); });
+    cpu.release();
+
+    expectThrow<std::invalid_argument>([&] { (void)mlfq.getQueueSize(0); });
+    expectThrow<std::invalid_argument>([&] { (void)mlfq.getQueueSize(6); });
 }
 
-void testDirtyQueueFailsLoudly() {
+void testProcessShifterOrder() {
     CLOCK clock;
     CPU cpu(0, clock);
-    MLFQ mlfq(cpu);
+    MLFQ mlfq(cpu, 3);
+    PCB first(1, "P1", 5);
+    PCB second(2, "P2", 5);
+    PCB third(3, "P3", 5);
+    mlfq.receivePCB(first, 1);
+    mlfq.receivePCB(third, 1);
+    mlfq.receivePCB(second, 3);
 
-    mlfq.Ready_processes1.push(nullptr);
-    expectThrow<std::logic_error>([&] { mlfq.ProcessShifter(); });
-    check(mlfq.Ready_processes1.size() == 1, "Bad entry is kept for diagnosis");
+    check(mlfq.ProcessShifter(), "Dispatch from the highest non-empty queue");
+    check(cpu.getCurrentProcess()->getPid() == 1 && first.isRunning(),
+          "Level 1 is dispatched first");
+    check(first.getTimeSlice() == 3, "Time piece is applied on dispatch");
+    check(mlfq.getLevelOf(1) == 1 && mlfq.getQueueSize(1) == 1,
+          "Dispatched process leaves the ready queue");
+    check(!mlfq.ProcessShifter(), "Busy CPU rejects another dispatch");
 
-    mlfq.Ready_processes1.pop();
-    PCB blocked(1, "blocked", 2);
-    blocked.setReady();
-    mlfq.Ready_processes1.push(&blocked);
-    blocked.suspend();
-    expectThrow<std::logic_error>([&] { mlfq.ProcessShifter(); });
-    check(mlfq.Ready_processes1.size() == 1, "Non-ready entry is not silently dropped");
+    cpu.release();
+    check(mlfq.ProcessShifter() && cpu.getCurrentProcess()->getPid() == 3, "Same-level FCFS order");
+    cpu.release();
+    check(mlfq.ProcessShifter() && cpu.getCurrentProcess()->getPid() == 2,
+          "Level 1 is served before level 3");
+    cpu.release();
+    check(!mlfq.ProcessShifter() && mlfq.getReadyCount() == 0, "No queued process remains");
+
+    mlfq.receivePCB(first, 1);
+    check(mlfq.getLevelOf(1) == 1 && mlfq.getQueueSize(1) == 1,
+          "A released process can be queued again");
+}
+
+void testDispatchFailureKeepsQueue() {
+    CLOCK clock;
+    CPU cpu(0, clock);
+    MLFQ mlfq(cpu, 2);
+    PCB future(1, "future", 2, 0, -1, 3);
+    mlfq.receivePCB(future, 2);
+
+    expectThrow<std::invalid_argument>([&] { (void)mlfq.ProcessShifter(); });
+    check(cpu.isIdle() && mlfq.getQueueSize(2) == 1 && future.isReady(),
+          "Failed dispatch keeps the process at the queue head");
+
+    clock.advance(3);
+    check(mlfq.ProcessShifter() && cpu.getCurrentProcess() == &future,
+          "Dispatch succeeds once the process has arrived");
+    cpu.release();
+    mlfq.Preempted(future);
+}
+
+void testTimeSliceExpiredDemotes() {
+    CLOCK clock;
+    CPU cpu(0, clock);
+    MLFQ mlfq(cpu, 2);
+    PCB process(1, "long", 20);
+    mlfq.receivePCB(process);
+
+    check(mlfq.ProcessShifter() && mlfq.getLevelOf(1) == 1, "Start at level 1");
+    check(cpu.tick() == CPU::TickResult::Running, "First tick consumes one time piece slot");
+    clock.advance();
+    check(cpu.tick() == CPU::TickResult::TimeSliceExpired, "Second tick exhausts the time piece");
+    clock.advance();
+    cpu.release();
+    mlfq.TimeSliceExpired(process);
+    check(mlfq.getLevelOf(1) == 2 && mlfq.getQueueSize(1) == 0 && mlfq.getQueueSize(2) == 1,
+          "Time slice expiration demotes one level");
+
+    check(mlfq.ProcessShifter() && process.getTimeSlice() == 2, "Demoted process gets a new slice");
+    check(cpu.tick() == CPU::TickResult::Running, "Level 2 starts a fresh slice");
+    clock.advance();
+    check(cpu.tick() == CPU::TickResult::TimeSliceExpired, "Level 2 slice also expires");
+    clock.advance();
+    cpu.release();
+    mlfq.TimeSliceExpired(process);
+    check(mlfq.getLevelOf(1) == 3 && mlfq.getQueueSize(3) == 1,
+          "Second expiration demotes to level 3");
+
+    expectThrow<std::logic_error>([&] { mlfq.TimeSliceExpired(process); });
+    expectThrow<std::logic_error>([&] { mlfq.Preempted(process); });
+
+    CLOCK bottomClock;
+    CPU bottomCpu(0, bottomClock);
+    MLFQ bottom(bottomCpu, 2);
+    PCB lowest(2, "lowest", 20);
+    bottom.receivePCB(lowest, MLFQ::kLevels);
+    check(bottom.ProcessShifter() && bottom.getLevelOf(2) == MLFQ::kLevels,
+          "Lowest queue dispatch");
+    check(bottomCpu.tick() == CPU::TickResult::Running, "Lowest queue runs");
+    bottomClock.advance();
+    check(bottomCpu.tick() == CPU::TickResult::TimeSliceExpired, "Lowest queue slice expires");
+    bottomClock.advance();
+    bottomCpu.release();
+    bottom.TimeSliceExpired(lowest);
+    check(bottom.getLevelOf(2) == MLFQ::kLevels && bottom.getQueueSize(MLFQ::kLevels) == 1,
+          "Lowest level does not demote further");
+}
+
+void testPreemption() {
+    CLOCK clock;
+    CPU cpu(0, clock);
+    MLFQ mlfq(cpu, 2);
+    PCB low(1, "low", 10);
+    PCB high(2, "high", 4);
+    mlfq.receivePCB(low, 3);
+    check(mlfq.ProcessShifter() && mlfq.getLevelOf(1) == 3, "Dispatch a level-3 process");
+    check(!mlfq.ShouldPreempt(low), "No higher queue is waiting");
+
+    mlfq.receivePCB(high, 2);
+    check(mlfq.ShouldPreempt(low), "Higher-level arrival triggers preemption");
+    cpu.release();
+    mlfq.Preempted(low);
+    check(mlfq.getLevelOf(1) == 3 && mlfq.getQueueSize(3) == 1, "Preemption keeps the level");
+
+    check(mlfq.ProcessShifter() && cpu.getCurrentProcess()->getPid() == 2,
+          "Higher queue is dispatched");
+    check(!mlfq.ShouldPreempt(high), "Level 2 outranks nothing");
+    PCB peer(3, "peer", 4);
+    mlfq.receivePCB(peer, 2);
+    check(!mlfq.ShouldPreempt(high), "Same-level arrival does not preempt");
+
+    cpu.release();
+    mlfq.Preempted(high);
+}
+
+void testBoostQueues() {
+    CLOCK clock;
+    CPU cpu(0, clock);
+    MLFQ mlfq(cpu, 2);
+    PCB first(1, "P1", 4);
+    PCB second(2, "P2", 4);
+    PCB third(3, "P3", 4);
+    mlfq.receivePCB(first, 2);
+    mlfq.receivePCB(second, 4);
+    mlfq.receivePCB(third, MLFQ::kLevels);
+
+    mlfq.BoostQueues();
+
+    check(mlfq.getQueueSize(1) == 3 && mlfq.getReadyCount() == 3,
+          "All waiting processes return to level 1");
+    for (int level = 2; level <= MLFQ::kLevels; ++level) {
+        check(mlfq.getQueueSize(level) == 0, "Lower queues are emptied by the boost");
+    }
+    check(mlfq.getLevelOf(1) == 1 && mlfq.getLevelOf(2) == 1 && mlfq.getLevelOf(3) == 1,
+          "Boosted processes report level 1");
+
+    const std::vector<int> expected = {1, 2, 3};
+    for (int pid : expected) {
+        check(mlfq.ProcessShifter() && cpu.getCurrentProcess()->getPid() == pid,
+              "Boost keeps the order of the lower queues");
+        cpu.release();
+        mlfq.Preempted(*findByPid({&first, &second, &third}, pid));
+    }
+}
+
+void testFullScenario() {
+    CLOCK clock;
+    CPU cpu(0, clock);
+    MLFQ mlfq(cpu, 1);
+    PCB first(1, "P1", 1);
+    PCB second(2, "P2", 2);
+    PCB third(3, "P3", 4);
+    mlfq.receivePCB(first);
+    mlfq.receivePCB(second);
+    mlfq.receivePCB(third);
+
+    const std::vector<Segment> segments =
+        runToCompletion(clock, cpu, mlfq, {&first, &second, &third});
+
+    checkSegments(segments, {{1, 1, 0, 1},
+                             {2, 1, 1, 2},
+                             {3, 1, 2, 3},
+                             {2, 2, 3, 4},
+                             {3, 2, 4, 5},
+                             {3, 3, 5, 6},
+                             {3, 4, 6, 7}});
+    check(first.getFinishTime() == 1 && second.getFinishTime() == 4 && third.getFinishTime() == 7,
+          "Short jobs finish first, long job sinks through the queues");
+    check(mlfq.getReadyCount() == 0 && mlfq.getLevelOf(1) == -1 && mlfq.getLevelOf(3) == -1,
+          "Queues and level records are cleared after completion");
 }
 } // namespace
 
 int main() {
     try {
-        testReceiveAndDispatch();
-        testHighestPriorityAndFcfs();
-        testTimeSliceExpiryAndDemotion();
-        testRejectInvalidProcesses();
-        testDirtyQueueFailsLoudly();
-        std::cout << "All MLFQ tests passed\n";
+        testReceiveAndValidation();
+        testProcessShifterOrder();
+        testDispatchFailureKeepsQueue();
+        testTimeSliceExpiredDemotes();
+        testPreemption();
+        testBoostQueues();
+        testFullScenario();
+        std::cout << "All MLFQ scheduler tests passed\n";
     } catch (const std::exception& error) {
-        std::cerr << "MLFQ test failed: " << error.what() << '\n';
+        std::cerr << "MLFQ scheduler test failed: " << error.what() << '\n';
         return 1;
     }
+    return 0;
 }
