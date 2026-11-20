@@ -14,6 +14,8 @@ set(PROJECT_SOURCES
         include/CLOCK.h
         src/CPU.cpp
         include/CPU.h
+        include/PS.h
+        src/PS.cpp
         include/MLFQ.h)
 
 add_executable(OSDesign ${PROJECT_SOURCES})
@@ -47,6 +49,14 @@ if(BUILD_TESTING)
             src/CLOCK.cpp
             src/PCB.cpp)
     add_test(NAME MLFQTest COMMAND MLFQTest)
+
+    add_executable(PSTest
+            tests/PSTest.cpp
+            src/PS.cpp
+            src/CPU.cpp
+            src/CLOCK.cpp
+            src/PCB.cpp)
+    add_test(NAME PSTest COMMAND PSTest)
 endif()
 
 # 代码格式化：优先使用 -DCLANG_FORMAT_EXECUTABLE=<path> 指定的版本，
