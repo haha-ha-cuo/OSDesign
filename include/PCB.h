@@ -27,9 +27,9 @@ public:
 
     // 时间单位为模拟时钟 tick；PID 的全局唯一性由进程管理器保证。
     PCB(int pid, std::string name, int burstTime, int priority = 0, int ppid = -1,
-                        int arrivalTime = 0);
+        int arrivalTime = 0);
 
-    PCB fork(int childPid,std::string childName,int childBurst) const;
+    PCB fork(int childPid, std::string childName, int childBurst) const;
 
     int getPid() const { return pid_; }
     int getParentPid() const { return ppid_; }

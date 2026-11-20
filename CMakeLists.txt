@@ -8,8 +8,12 @@ set(PROJECT_SOURCES
         src/main.cpp
         src/PCB.cpp
         include/PCB.h
-        src/FCFS.cpp
-        include/FCFS.h)
+        src/MFQ.cpp
+        include/MFQ.h
+        src/CLOCK.cpp
+        include/CLOCK.h
+        src/CPU.cpp
+        include/CPU.h)
 
 add_executable(OSDesign ${PROJECT_SOURCES})
 
@@ -19,6 +23,19 @@ if(BUILD_TESTING)
             tests/ProcessControlBlockTest.cpp
             src/PCB.cpp)
     add_test(NAME ProcessControlBlockTest COMMAND ProcessControlBlockTest)
+
+    add_executable(CLOCKTest
+            tests/CLOCKTest.cpp
+            src/CLOCK.cpp
+            src/PCB.cpp)
+    add_test(NAME CLOCKTest COMMAND CLOCKTest)
+
+    add_executable(CPUTest
+            tests/CPUTest.cpp
+            src/CPU.cpp
+            src/CLOCK.cpp
+            src/PCB.cpp)
+    add_test(NAME CPUTest COMMAND CPUTest)
 endif()
 
 # 代码格式化：优先使用 -DCLANG_FORMAT_EXECUTABLE=<path> 指定的版本，

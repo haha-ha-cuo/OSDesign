@@ -25,8 +25,7 @@ bool removeValue(std::vector<T>& values, const T& value) {
 }
 } // namespace
 
-PCB::PCB(int pid, std::string name, int burstTime, int priority,
-                                         int ppid, int arrivalTime)
+PCB::PCB(int pid, std::string name, int burstTime, int priority, int ppid, int arrivalTime)
     : pid_(pid), ppid_(ppid), name_(std::move(name)), priority_(priority),
       arrivalTime_(arrivalTime), burstTime_(burstTime), remainingTime_(burstTime),
       lastTime_(arrivalTime) {
@@ -36,18 +35,15 @@ PCB::PCB(int pid, std::string name, int burstTime, int priority,
 }
 
 PCB PCB::fork(int childPid, std::string childName, int childBurst) const {
-    return PCB(childPid, std::move(childName), childBurst, priority_,pid_,lastTime_);
+    return PCB(childPid, std::move(childName), childBurst, priority_, pid_, lastTime_);
 }
 
 void PCB::setReady() {
     switch (state_) {
         case ProcessState::New:
-        case ProcessState::Running:
-            break;
-        case ProcessState::Ready:
-            return;
-        default:
-            throw std::logic_error("Only new, running or ready processes can become ready");
+        case ProcessState::Running: break;
+        case ProcessState::Ready: return;
+        default: throw std::logic_error("Only new, running or ready processes can become ready");
     }
     state_ = ProcessState::Ready;
 }
