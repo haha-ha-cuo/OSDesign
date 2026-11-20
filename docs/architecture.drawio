@@ -1,0 +1,346 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" type="device" compressed="false">
+  <diagram id="overview" name="模块依赖总览">
+    <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="1074" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="canvas" value="" style="fillColor=#FFFFFF;strokeColor=none;movable=0;resizable=0;selectable=0;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1280" height="1074" as="geometry" />
+        </mxCell>
+        <mxCell id="title" value="操作系统模拟系统 · 模块依赖" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=34;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="48" y="30" width="1184" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="箭头从模块指向它使用的基础。虚线连接是根据 README 和现有代码整理的接入设计。" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=17;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="49" y="86" width="1182" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-current-line" value="" style="shape=line;strokeWidth=1.5;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="1057" y="49" width="30" height="3" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-current-text" value="现有代码关系" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=14;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="1099" y="39" width="125" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-planned-line" value="" style="shape=line;strokeWidth=1.5;strokeColor=#000000;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="1057" y="76" width="30" height="3" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-planned-text" value="规划中的连接" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=14;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="1099" y="66" width="125" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="cli" value="&lt;div style=&quot;font-size:19px;font-weight:bold;&quot;&gt;交互界面 · 规划&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;菜单与命令解析&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;查询进程、内存与调度状态&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="48" y="142" width="328" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="loop" value="&lt;div style=&quot;font-size:19px;font-weight:bold;&quot;&gt;模拟主循环 · 待接入&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;调用调度器选进程，驱动 CPU 与 CLOCK&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;向交互界面提供操作与状态查询入口&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="440" y="142" width="400" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="entry" value="&lt;div style=&quot;font-size:19px;font-weight:bold;&quot;&gt;当前程序入口&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;main.cpp 只输出示例文本&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;尚未接入命令行菜单和主循环&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="904" y="142" width="328" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="cli-loop" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="cli" target="loop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="core-title" value="进程调度的基础" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=19;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="48" y="272" width="470" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="pcb" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;PCB · 已实现&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;保存进程状态、计时&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;保存 CPU 上下文&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=11;spacingRight=11;spacingTop=11;spacingBottom=11;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="48" y="312" width="208" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="process" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;进程管理 · 待接入&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;进程表持有 PCB&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;提供就绪、阻塞与唤醒接口&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=11;spacingRight=11;spacingTop=11;spacingBottom=11;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="292" y="312" width="208" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="scheduler" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;进程调度 · MFQ 骨架&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;依靠进程管理取得就绪进程&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;调用 CPU 派发或卸载进程&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=11;spacingRight=11;spacingTop=11;spacingBottom=11;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="536" y="312" width="208" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="cpu" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;CPU · 已实现&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;装载 PCB 并执行一个 tick&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;从 CLOCK 读取当前时刻&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=11;spacingRight=11;spacingTop=11;spacingBottom=11;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="312" width="208" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="clock" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;CLOCK · 已实现&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;记录全局模拟时间&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;计划由主循环统一推进&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=11;spacingRight=11;spacingTop=11;spacingBottom=11;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1024" y="312" width="208" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="loop-scheduler" value="选择就绪进程" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="loop" target="scheduler">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="process-pcb" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.5;entryX=1;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="process" target="pcb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="scheduler-process" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.5;entryX=1;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="scheduler" target="process">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="scheduler-cpu" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="scheduler" target="cpu">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cpu-clock" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cpu" target="clock">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cpu-pcb" value="CPU 使用 PCB 更新运行计时、保存和恢复上下文" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=1;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cpu" target="pcb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="884" y="452" />
+              <mxPoint x="152" y="452" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="other-title" value="其他模块的基础与接入点" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=19;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="48" y="483" width="1184" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="sync" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;互斥与同步&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=4;spacingRight=4;spacingTop=4;spacingBottom=4;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="48" y="523" width="133" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="sync-base" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;锁／信号量及其等待队列&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;进程需要等待时，接进程管理的阻塞／唤醒&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=12;spacingBottom=12;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="523" width="409" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="sync-depends" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="sync" target="sync-base">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="memory" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;内存管理&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=4;spacingRight=4;spacingTop=4;spacingBottom=4;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="656" y="523" width="133" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="memory-base" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;模拟内存与空闲空间记录&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;进程映射接 PCB，换入／换出接模拟磁盘&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=12;spacingBottom=12;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="823" y="523" width="409" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="memory-depends" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="memory" target="memory-base">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ipc" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;进程通信&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=4;spacingRight=4;spacingTop=4;spacingBottom=4;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="48" y="630" width="133" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="ipc-base" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;消息队列／管道依赖缓冲区&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;阻塞读写接进程管理，共享内存接内存管理&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=12;spacingBottom=12;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="630" width="409" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="ipc-depends" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="ipc" target="ipc-base">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="disk" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;外存访问&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=4;spacingRight=4;spacingTop=4;spacingBottom=4;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="656" y="630" width="133" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="disk-base" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;文件系统依赖模拟磁盘的块读写&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;在块设备上实现文件创建、读写与删除&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=12;spacingBottom=12;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="823" y="630" width="409" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="disk-depends" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="disk" target="disk-base">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="deadlock" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;死锁处理&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=4;spacingRight=4;spacingTop=4;spacingBottom=4;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="48" y="737" width="133" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="deadlock-base" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;资源总量、占用及等待记录&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;银行家算法另需最大需求，恢复时接进程管理&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=12;spacingBottom=12;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="737" width="409" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="deadlock-depends" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="deadlock" target="deadlock-base">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="thread" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;线程机制&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=4;spacingRight=4;spacingTop=4;spacingBottom=4;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="656" y="737" width="133" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="thread-base" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;进程归属、线程上下文、就绪线程队列&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;进程获得 CPU 后，由用户级调度选择线程&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=12;spacingBottom=12;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="823" y="737" width="409" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="thread-depends" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="thread" target="thread-base">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="minimum" value="" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="48" y="868" width="1184" height="156" as="geometry" />
+        </mxCell>
+        <mxCell id="minimum-title" value="先跑通多进程调度" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="65" y="877" width="1150" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="minimum-steps" value="建立进程表和就绪队列 → 接通一种调度策略、CPU 和 CLOCK → 跑通派发、执行与退出" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=16;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="66" y="909" width="1148" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="minimum-next" value="再实现第二种经典调度算法，满足 README 的调度要求。模拟内存分配器与模拟磁盘可并行开发。" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=15;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="66" y="948" width="1148" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="minimum-io" value="阻塞与唤醒接通后再联调同步和阻塞通信。磁盘块读写就绪后可接文件系统与换入换出。" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=15;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="66" y="979" width="1148" height="26" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="process" name="进程调度与模拟节拍">
+    <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="980" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="canvas" value="" style="fillColor=#FFFFFF;strokeColor=none;movable=0;resizable=0;selectable=0;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1280" height="980" as="geometry" />
+        </mxCell>
+        <mxCell id="title" value="进程管理、调度与模拟节拍" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=34;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="48" y="30" width="1184" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="实线表示现有代码关系。下方列出调度要求与主循环的接入设计。" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=17;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="49" y="86" width="1182" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="pcb" value="&lt;div style=&quot;font-size:19px;font-weight:bold;&quot;&gt;PCB · 已实现&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;记录进程标识、状态和计时&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;保存 CPU 上下文&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;提供进程状态转换接口&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="48" y="132" width="272" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="mfq" value="&lt;div style=&quot;font-size:19px;font-weight:bold;&quot;&gt;MFQ · 骨架&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;定义五个就绪队列&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;按值存放 PCB&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;FCFS() 目前为空&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="352" y="132" width="272" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="cpu" value="&lt;div style=&quot;font-size:19px;font-weight:bold;&quot;&gt;CPU · 已实现&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;装载、执行、卸载进程&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;返回节拍结果&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;通过 now() 读取共享时钟&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="656" y="132" width="272" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="clock" value="&lt;div style=&quot;font-size:19px;font-weight:bold;&quot;&gt;CLOCK · 已实现&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;以 tick 记录全局时刻&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;now() 查询时间&lt;/div&gt;&lt;div style=&quot;margin-top:4px;&quot;&gt;advance() 统一推进时间&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="132" width="272" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="mfq-pcb" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.5;entryX=1;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="mfq" target="pcb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cpu-clock" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cpu" target="clock">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cpu-pcb" value="CPU 通过非拥有指针访问 PCB，更新运行计时并保存或恢复上下文" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=1;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cpu" target="pcb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="792" y="300" />
+              <mxPoint x="184" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="state-frame" value="" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="48" y="332" width="1184" height="257" as="geometry" />
+        </mxCell>
+        <mxCell id="state-frame-title" value="PCB 状态转换与进程管理" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="65" y="341" width="1150" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="new" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;新建 New&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=0;spacingRight=0;spacingTop=0;spacingBottom=0;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="86" y="382" width="195" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="ready" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;就绪 Ready&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=0;spacingRight=0;spacingTop=0;spacingBottom=0;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="379" y="382" width="195" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="running" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;运行 Running&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=0;spacingRight=0;spacingTop=0;spacingBottom=0;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="672" y="382" width="195" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="blocked" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;阻塞 Blocked&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=0;spacingRight=0;spacingTop=0;spacingBottom=0;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="965" y="382" width="195" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="new-ready" value="进入就绪" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="new" target="ready">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ready-running" value="装载运行" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ready" target="running">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="running-blocked" value="等待资源" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="running" target="blocked">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="running-ready" value="抢占" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=0.25;exitY=1;entryX=0.75;entryY=1;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="running" target="ready">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="720.75" y="460" />
+              <mxPoint x="525.25" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="blocked-ready" value="唤醒" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.25;entryY=1;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="blocked" target="ready">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1062.5" y="496" />
+              <mxPoint x="427.75" y="496" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="suspension" value="挂起与激活 · Ready 或 Blocked 可进入 Suspended，激活时恢复挂起前的状态" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=15;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="68" y="516" width="1144" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="lifecycle" value="创建与撤销 · PCB 提供 fork() 和 terminate()，系统级进程表、PID 管理及退出资源回收待接入" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=15;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="68" y="546" width="1144" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="scheduler-detail" value="&lt;div style=&quot;font-size:21px;font-weight:bold;&quot;&gt;进程调度&lt;/div&gt;&lt;div style=&quot;margin-top:5px;&quot;&gt;README 要求实现至少两种经典算法，以下是候选示例&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;FCFS 先来先服务&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;按就绪队列的到达顺序选择进程。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;SJF 短作业优先&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;优先选预计运行时间较短的作业。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;RR 时间片轮转&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;时间片耗尽后将未完成进程放回队列。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;优先级调度&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;根据优先级选择就绪进程。&lt;/div&gt;&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=0;spacingLeft=17;spacingRight=17;spacingTop=17;spacingBottom=17;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="48" y="613" width="566" height="324" as="geometry" />
+        </mxCell>
+        <mxCell id="tick-detail" value="&lt;div style=&quot;font-size:21px;font-weight:bold;&quot;&gt;模拟主循环&lt;/div&gt;&lt;div style=&quot;margin-top:5px;&quot;&gt;规划中的一个 tick&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;处理到达并派发&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;处理作业到达等事件，给空闲 CPU 装载选中的就绪进程。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;执行并推进时钟&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;CPU 执行一个 tick，主循环累计就绪等待，再统一推进时钟一次。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;处理节拍结果&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;完成时先终止再卸载。时间片耗尽时卸载，交给调度器重新入队。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;管理 PCB 的生命周期&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;设计上由进程表持有 PCB，队列保存 PID 或稳定引用。&lt;/div&gt;&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=0;spacingLeft=17;spacingRight=17;spacingTop=17;spacingBottom=17;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="636" y="613" width="596" height="324" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="concurrency" name="同步、通信与死锁">
+    <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="759" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="canvas" value="" style="fillColor=#FFFFFF;strokeColor=none;movable=0;resizable=0;selectable=0;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1280" height="759" as="geometry" />
+        </mxCell>
+        <mxCell id="title" value="互斥与同步、进程通信、死锁处理" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=34;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="48" y="30" width="1184" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="模块功能来自 README。底部给出各模块接入进程管理时的协作示例。" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=17;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="49" y="86" width="1182" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="sync" value="&lt;div style=&quot;font-size:21px;font-weight:bold;&quot;&gt;互斥与同步&lt;/div&gt;&lt;div style=&quot;margin-top:5px;&quot;&gt;规划&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;互斥锁&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;加锁与解锁，控制对临界区的互斥访问。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;信号量与 PV 操作&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;P 等待可用许可，V 释放许可，并可唤醒等待者。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;生产者–消费者&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;用信号量协调缓冲区空位和已有数据，用互斥保护缓冲区。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;读者–写者&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;协调多个读者与写者对共享数据的访问。&lt;/div&gt;&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=0;spacingLeft=18;spacingRight=18;spacingTop=18;spacingBottom=18;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="48" y="137" width="378" height="362" as="geometry" />
+        </mxCell>
+        <mxCell id="ipc" value="&lt;div style=&quot;font-size:21px;font-weight:bold;&quot;&gt;进程通信&lt;/div&gt;&lt;div style=&quot;margin-top:5px;&quot;&gt;规划&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;共享内存&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;通过内存管理将同一区域映射到多个进程，需要协调访问时可接同步模块。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;消息队列&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;在消息缓冲区中保存待取出的消息，阻塞接收时调用进程管理。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;管道&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;一端写入，另一端按顺序读取字节。&lt;/div&gt;&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=0;spacingLeft=18;spacingRight=18;spacingTop=18;spacingBottom=18;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="451" y="137" width="378" height="362" as="geometry" />
+        </mxCell>
+        <mxCell id="deadlock" value="&lt;div style=&quot;font-size:21px;font-weight:bold;&quot;&gt;死锁处理&lt;/div&gt;&lt;div style=&quot;margin-top:5px;&quot;&gt;规划&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;死锁预防&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;用资源申请规则破坏死锁的必要条件，例如规定资源申请顺序。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;死锁避免 · 银行家算法&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;使用最大需求、已分配量和可用量判断试分配后的安全性。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;死锁检测与恢复&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;读资源占用与等待记录检测环路等情况，恢复时可由进程管理撤销进程。&lt;/div&gt;&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=0;spacingLeft=18;spacingRight=18;spacingTop=18;spacingBottom=18;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="854" y="137" width="378" height="362" as="geometry" />
+        </mxCell>
+        <mxCell id="integration" value="" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="48" y="526" width="1184" height="184" as="geometry" />
+        </mxCell>
+        <mxCell id="integration-title" value="与进程管理的协作示例" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="65" y="535" width="1150" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="request" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;发起等待操作&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;申请资源、等待信号量或接收数据&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=7;spacingRight=7;spacingTop=7;spacingBottom=7;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="72" y="577" width="324" height="73" as="geometry" />
+        </mxCell>
+        <mxCell id="blocked" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;条件不满足时阻塞&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;记录阻塞原因或待申请资源&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=7;spacingRight=7;spacingTop=7;spacingBottom=7;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="478" y="577" width="324" height="73" as="geometry" />
+        </mxCell>
+        <mxCell id="ready" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;条件满足后唤醒&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;进程重新进入就绪队列&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=0;spacingLeft=7;spacingRight=7;spacingTop=7;spacingBottom=7;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="884" y="577" width="324" height="73" as="geometry" />
+        </mxCell>
+        <mxCell id="request-blocked" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="request" target="blocked">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="blocked-ready" value="" style="edgeStyle=segmentEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;endSize=7;strokeWidth=1.5;fontFamily=Arial;fontSize=14;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;dashed=1;dashPattern=5 4;" edge="1" parent="1" source="blocked" target="ready">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="current-pcb" value="源码中 PCB 已支持记录阻塞原因、持有的资源和等待的资源。" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=15;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="72" y="665" width="1136" height="26" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="storage-thread" name="内存、外存与线程">
+    <mxGraphModel grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="759" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="canvas" value="" style="fillColor=#FFFFFF;strokeColor=none;movable=0;resizable=0;selectable=0;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1280" height="759" as="geometry" />
+        </mxCell>
+        <mxCell id="title" value="内存管理、外存访问与线程机制" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=34;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="48" y="30" width="1184" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="模块功能来自 README。图中的数据结构和模块协作用于说明接入设计。" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=17;fontColor=#000000;fontStyle=0;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="49" y="86" width="1182" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="memory" value="&lt;div style=&quot;font-size:21px;font-weight:bold;&quot;&gt;内存管理&lt;/div&gt;&lt;div style=&quot;margin-top:5px;&quot;&gt;规划&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;内存分配与回收&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;维护可用空间，为进程分配空间并在释放后回收。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;首次适应与最佳适应&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;首次适应选第一个够用的空闲块，最佳适应选最小的可用空闲块。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;分页与分段&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;模拟逻辑地址到物理位置的映射。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;换入与换出&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;依靠模拟磁盘的块读写，将进程数据换出或换回内存。&lt;/div&gt;&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=0;spacingLeft=18;spacingRight=18;spacingTop=18;spacingBottom=18;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="48" y="137" width="378" height="362" as="geometry" />
+        </mxCell>
+        <mxCell id="disk" value="&lt;div style=&quot;font-size:21px;font-weight:bold;&quot;&gt;外存访问&lt;/div&gt;&lt;div style=&quot;margin-top:5px;&quot;&gt;规划&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;模拟磁盘&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;提供模拟磁盘空间和块读写。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;模拟文件系统&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;在模拟磁盘上管理文件标识、内容及所占空间。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;文件操作&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;创建、读取、写入、删除文件。&lt;/div&gt;&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=0;spacingLeft=18;spacingRight=18;spacingTop=18;spacingBottom=18;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="451" y="137" width="378" height="362" as="geometry" />
+        </mxCell>
+        <mxCell id="thread" value="&lt;div style=&quot;font-size:21px;font-weight:bold;&quot;&gt;线程机制&lt;/div&gt;&lt;div style=&quot;margin-top:5px;&quot;&gt;规划中的用户级线程&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;创建&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;在进程内建立线程并登记线程状态。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;调度&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;从就绪线程中选择执行者并切换线程上下文。&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;margin-top:15px;&quot;&gt;&lt;div style=&quot;font-weight:bold;font-size:16px;&quot;&gt;撤销&lt;/div&gt;&lt;div style=&quot;margin-top:4px;line-height:1.42;&quot;&gt;终止线程并回收该线程的执行上下文。&lt;/div&gt;&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=0;spacingLeft=18;spacingRight=18;spacingTop=18;spacingBottom=18;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="854" y="137" width="378" height="362" as="geometry" />
+        </mxCell>
+        <mxCell id="integration" value="" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=16;spacingRight=16;spacingTop=16;spacingBottom=16;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="48" y="526" width="1184" height="184" as="geometry" />
+        </mxCell>
+        <mxCell id="integration-title" value="与现有 PCB 及调度模块的接入点" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#000000;fontStyle=1;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="65" y="535" width="1150" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="memory-pcb" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;内存管理 → PCB&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;已有内存起始地址、大小、页表、换出标记。&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=12;spacingBottom=12;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="72" y="581" width="374" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="disk-pcb" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;外存访问 → PCB&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;已有打开文件名记录，可在接入时维护。&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=12;spacingBottom=12;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="453" y="581" width="374" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="thread-scheduler" value="&lt;div style=&quot;font-size:16px;font-weight:bold;&quot;&gt;线程机制 → 调度&lt;/div&gt;&lt;div style=&quot;margin-top:7px;&quot;&gt;进程获得模拟 CPU 后，可由用户级调度器选择该进程内的就绪线程。&lt;/div&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=0;spacingLeft=12;spacingRight=12;spacingTop=12;spacingBottom=12;fontFamily=Arial;fontSize=15;fontColor=#000000;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=5 4;" vertex="1" parent="1">
+          <mxGeometry x="834" y="581" width="374" height="92" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
