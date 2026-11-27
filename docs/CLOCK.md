@@ -54,7 +54,8 @@ int main() {
     pcb.setRunning(clock.now());
 
     while (!pcb.isFinished()) {
-        bool expired = pcb.consumeTimeSlice();
+        pcb.updateRuntime(1);
+        bool expired = pcb.getRemainingTimeSlice() == 0;
         clock.advance();
 
         if (pcb.isFinished()) {
@@ -66,12 +67,10 @@ int main() {
             pcb.setRunning(clock.now());
         }
     }
-    pcb.print();
 }
 ```
 
-`consumeTimeSlice()` 已执行一个 tick，不能再为同一 tick 调用 `updateRuntime(1)`。
-没有设置时间片时可使用 `updateRuntime(1)`。全局时钟必须由主循环唯一推进，
+`updateRuntime(1)` 执行一个 tick，并扣减已配置的时间片。全局时钟必须由主循环唯一推进，
 PCB 中的 `lastTime_` 只负责本进程的时间记录与校验，不是另一个全局时钟。
 
 ## 测试

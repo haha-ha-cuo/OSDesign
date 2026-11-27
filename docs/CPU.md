@@ -16,7 +16,7 @@
 
 CPU 只执行调度器选好的进程，不实现 FCFS/MLFQ、不决定进程进入哪个队列、
 不自动终止进程。`tick()` 只模拟一个 tick 的 CPU 时间，不假定一个 tick 等于一条指令，
-因此不会自动增加程序计数器。后续指令模拟器可通过 `setContext()` 更新寄存器。
+寄存器由调用方通过 `setContext()` 更新。
 
 ## 接口
 
@@ -35,7 +35,7 @@ CPU 只执行调度器选好的进程，不实现 FCFS/MLFQ、不决定进程进
 收到 `Finished` 或 `TimeSliceExpired` 后必须处理结果，不能继续执行该进程。
 
 `release()` 对仍在运行且未完成的进程执行 `Running -> Ready`，表示抢占；
-已经阻塞或终止的进程保持原状态。运行预算耗尽的进程必须先调用
+已经终止的进程保持原状态。运行预算耗尽的进程必须先调用
 `terminate(clock.now())`，再卸载。执行完一个 tick 后必须先推进时钟，才能卸载。
 非法状态/节拍顺序抛出 `std::logic_error`；时钟到达 `int` 上限时执行 tick 抛出
 `std::overflow_error`，不会修改 PCB 的运行时间。
@@ -68,7 +68,7 @@ while (!pcb.isTerminated()) {
 ```
 
 CPU 已调用 `updateRuntime(1)`，主循环不能再为同一进程、同一 tick 调用
-`updateRuntime(1)` 或 `consumeTimeSlice()`。阻塞和强制终止时，调用方应在节拍边界
+`updateRuntime(1)`。强制终止时，调用方应在节拍边界
 修改 PCB 状态，再立即 `release()`，保证 CPU 与进程状态一致。
 空闲 CPU 的 `tick()` 返回 `Idle`，主循环仍应推进全局时间，以处理未来事件。
 
@@ -85,4 +85,4 @@ PCB 指针；不能通过在队列间复制 PCB 来代替同一个进程。此�
 即使扩展为多个 CPU，也必须先处理所有核心的当前 tick，再将全局时间推进一次。
 重新开始模拟时需要一并重建 CPU、PCB 和时钟，不能只将时钟归零。
 
-`tests/CPUTest.cpp` 覆盖装载、抢占、完成、阻塞、上下文切换、时间片、重复/跳过节拍和溢出。
+`tests/CPUTest.cpp` 覆盖装载、抢占、完成、上下文切换、时间片、重复/跳过节拍和溢出。

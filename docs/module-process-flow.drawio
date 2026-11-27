@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" compressed="false">
+  <diagram id="module-process-flow" name="模块间过程图">
+    <mxGraphModel dx="1800" dy="1720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1720" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="操作系统模拟系统 · 模块间过程图" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=32;fontColor=#22324A;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="30" width="1500" height="55" />
+        </mxCell>
+        <mxCell id="subtitle" value="完整设计示意：创建 → 就绪 → 调度 → 执行 → 阻塞 / 唤醒 → 结束" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=19;fontColor=#526076;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="90" width="1600" height="35" />
+        </mxCell>
+        <mxCell id="section-memory" value="内存与外存" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=20;fontColor=#548568;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="160" y="180" width="350" height="35" />
+        </mxCell>
+        <mxCell id="section-main" value="创建与调度主流程" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=20;fontColor=#5479B4;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="700" y="135" width="360" height="30" />
+        </mxCell>
+        <mxCell id="section-sync" value="同步与资源等待" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=20;fontColor=#B8893C;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1200" y="540" width="500" height="35" />
+        </mxCell>
+        <mxCell id="creator" value="&lt;b&gt;创建器&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;接收创建请求&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EAF2FF;strokeColor=#5479B4;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="700" y="190" width="240" height="80" />
+        </mxCell>
+        <mxCell id="process" value="&lt;b&gt;进程&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;创建并初始化 PCB&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EAF2FF;strokeColor=#5479B4;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="700" y="340" width="240" height="80" />
+        </mxCell>
+        <mxCell id="memory" value="&lt;b&gt;内存管理&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;地址空间、装入与页面管理&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EAF6EF;strokeColor=#548568;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="200" y="450" width="240" height="80" />
+        </mxCell>
+        <mxCell id="thread" value="&lt;b&gt;创建初始线程 / TCB&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;归属进程，共享进程资源&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EAF2FF;strokeColor=#5479B4;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="700" y="590" width="240" height="80" />
+        </mxCell>
+        <mxCell id="ready" value="&lt;b&gt;就绪队列&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;等待获得 CPU&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#F2EDFA;strokeColor=#8B70AD;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="700" y="780" width="240" height="80" />
+        </mxCell>
+        <mxCell id="scheduler" value="&lt;b&gt;调度器&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;选择下一个运行对象&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EAF2FF;strokeColor=#5479B4;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="700" y="960" width="240" height="80" />
+        </mxCell>
+        <mxCell id="switch" value="&lt;b&gt;上下文切换器&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;恢复被选对象的执行现场&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EAF2FF;strokeColor=#5479B4;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="700" y="1130" width="240" height="80" />
+        </mxCell>
+        <mxCell id="cpu" value="&lt;b&gt;CPU 执行&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;运行指令，产生调度与资源事件&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EAF2FF;strokeColor=#5479B4;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="700" y="1320" width="240" height="80" />
+        </mxCell>
+        <mxCell id="save" value="&lt;b&gt;保存上下文&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;上下文切换的一部分&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#F2EDFA;strokeColor=#8B70AD;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="380" y="1130" width="240" height="80" />
+        </mxCell>
+        <mxCell id="disk" value="&lt;b&gt;外存&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;程序、数据与换入页面&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EAF6EF;strokeColor=#548568;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="80" y="780" width="240" height="80" />
+        </mxCell>
+        <mxCell id="sync" value="&lt;b&gt;同步与资源管理&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;锁、信号量与资源请求&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF3DF;strokeColor=#B8893C;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1200" y="1320" width="240" height="80" />
+        </mxCell>
+        <mxCell id="deadlock" value="&lt;b&gt;死锁避免&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;检查资源与分配安全性&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF3DF;strokeColor=#B8893C;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1500" y="1110" width="240" height="80" />
+        </mxCell>
+        <mxCell id="allow" value="&lt;b&gt;分配资源&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;继续执行&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFF3DF;strokeColor=#B8893C;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1500" y="1320" width="240" height="80" />
+        </mxCell>
+        <mxCell id="blocked" value="&lt;b&gt;阻塞并保存上下文&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;当前运行对象让出 CPU&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#F2EDFA;strokeColor=#8B70AD;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1200" y="960" width="240" height="80" />
+        </mxCell>
+        <mxCell id="wakeup" value="&lt;b&gt;唤醒等待者&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;重新进入就绪队列&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#F2EDFA;strokeColor=#8B70AD;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1200" y="650" width="240" height="80" />
+        </mxCell>
+        <mxCell id="end" value="&lt;b&gt;终止并回收资源&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:14px&quot;&gt;释放内存、锁及其他资源&lt;/span&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FBEDEA;strokeColor=#AD7067;strokeWidth=1.5;fontFamily=Helvetica;fontSize=19;fontColor=#22324A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="380" y="1500" width="240" height="80" />
+        </mxCell>
+        <mxCell id="edge-1" value="创建 PCB" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#5479B4;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="creator" target="process">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-2" value="分配地址空间、装入程序" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#548568;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="process" target="memory">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="320" y="380" />
+            </Array>
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" value="提供程序和数据" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#548568;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="disk" target="memory">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="130" y="700" />
+              <mxPoint x="130" y="506" />
+            </Array>
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" value="初始化成功" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#548568;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="memory" target="thread">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="550" y="490" />
+              <mxPoint x="550" y="630" />
+            </Array>
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" value="进入就绪状态" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#5479B4;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="thread" target="ready">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" value="提供可运行对象" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#5479B4;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ready" target="scheduler">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-7" value="选出下一个运行对象" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#5479B4;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="scheduler" target="switch">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-8" value="恢复寄存器、PC、栈指针" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#5479B4;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="switch" target="cpu">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-9" value="时间片耗尽 / 被抢占" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#8B70AD;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="cpu" target="save">
+          <mxGeometry as="geometry" x="0.3" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="500" y="1340" />
+            </Array>
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-10" value="保存后重新入队" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#8B70AD;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="save" target="ready">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="500" y="820" />
+            </Array>
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-11" value="加锁 / P 操作 / 请求资源" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#5479B4;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cpu" target="sync">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-12" value="需要资源安全性检查" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#B8893C;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="sync" target="deadlock">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="1470" y="1340" />
+              <mxPoint x="1470" y="1250" />
+              <mxPoint x="1620" y="1250" />
+            </Array>
+            <mxPoint as="offset" x="0" y="-12" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-13" value="资源可用且分配安全" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#B8893C;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="deadlock" target="allow">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="1770" y="1150" />
+              <mxPoint x="1770" y="1360" />
+            </Array>
+            <mxPoint as="offset" x="-75" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-14" value="继续执行" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#B8893C;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.85;entryDx=0;entryDy=0;" edge="1" parent="1" source="allow" target="cpu">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="1620" y="1460" />
+              <mxPoint x="1040" y="1460" />
+              <mxPoint x="1040" y="1388" />
+            </Array>
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-15" value="同步条件不满足" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#8B70AD;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.3;exitY=0;exitDx=0;exitDy=0;entryX=0.3;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="sync" target="blocked">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <mxPoint as="offset" x="-5" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-16" value="资源不足或分配不安全，等待" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#8B70AD;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="deadlock" target="blocked">
+          <mxGeometry as="geometry" x="-0.25" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="1620" y="1000" />
+            </Array>
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-17" value="CPU 让出后重新调度" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#8B70AD;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="blocked" target="scheduler">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-18" value="解锁 / V 操作&lt;br&gt;使等待条件满足" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#B8893C;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.7;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="sync" target="wakeup">
+          <mxGeometry as="geometry" x="0.45" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="1368" y="1240" />
+              <mxPoint x="1470" y="1240" />
+              <mxPoint x="1470" y="690" />
+            </Array>
+            <mxPoint as="offset" x="45" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-19" value="唤醒后重新排队" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#8B70AD;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wakeup" target="ready">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="1080" y="690" />
+              <mxPoint x="1080" y="820" />
+            </Array>
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-20" value="访存" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#548568;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0;exitY=0.7;exitDx=0;exitDy=0;entryX=0.65;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="cpu" target="memory">
+          <mxGeometry as="geometry" x="0.2" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="356" y="1376" />
+              <mxPoint x="356" y="650" />
+              <mxPoint x="356" y="570" />
+            </Array>
+            <mxPoint as="offset" x="-22" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-21" value="缺页时请求调入页面" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#548568;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.2;exitY=1;exitDx=0;exitDy=0;entryX=0.65;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="memory" target="disk">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="248" y="650" />
+              <mxPoint x="236" y="650" />
+            </Array>
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-22" value="页面调入完成后唤醒等待者" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#548568;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="disk" target="wakeup">
+          <mxGeometry as="geometry" x="0.35" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="40" y="820" />
+              <mxPoint x="40" y="300" />
+              <mxPoint x="1320" y="300" />
+            </Array>
+            <mxPoint as="offset" x="0" y="-12" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-23" value="运行结束" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#AD7067;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cpu" target="end">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="820" y="1540" />
+            </Array>
+            <mxPoint as="offset" x="0" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-24" value="释放内存" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#548568;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="end" target="memory">
+          <mxGeometry as="geometry" x="-0.35" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="20" y="1540" />
+              <mxPoint x="20" y="470" />
+            </Array>
+            <mxPoint as="offset" x="48" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-25" value="释放锁及其他资源" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#B8893C;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="end" target="sync">
+          <mxGeometry as="geometry" x="0" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="500" y="1630" />
+              <mxPoint x="1320" y="1630" />
+            </Array>
+            <mxPoint as="offset" x="0" y="-12" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-26" value="继续调度" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.6;strokeColor=#AD7067;fontFamily=Helvetica;fontSize=14;fontColor=#334155;labelBackgroundColor=#FFFFFF;spacing=4;exitX=1;exitY=0.2;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="end" target="scheduler">
+          <mxGeometry as="geometry" x="0.3" y="0" relative="1">
+            <Array as="points">
+              <mxPoint x="650" y="1516" />
+              <mxPoint x="650" y="1020" />
+            </Array>
+            <mxPoint as="offset" x="-16" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="notes" value="说明：线程、内存、外存、同步与死锁处理属于待接入设计；当前实现以 PCB 为调度对象。&lt;br&gt;“死锁避免”用于资源分配前检查；死锁检测与恢复应另画流程。缺页等待也需要阻塞并让出 CPU。" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=15;fontColor=#526076;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="1660" width="1680" height="50" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
