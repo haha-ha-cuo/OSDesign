@@ -1,19 +1,16 @@
-//
-// Created by YuHao Shi on 2026/11/27.
-//
-
 #ifndef OSDESIGN_PROCESS_H
 #define OSDESIGN_PROCESS_H
 
 #include "Instruction.h"
 #include "PCB.h"
-#include <unordered_map>
+#include <vector>
 
 class Process {
-private:
-    PCB pcb;
+    friend class Core;
 
 public:
+    PCB* pcb = nullptr;
+    std::vector<Instruction> programs;
     Process();
 };
 

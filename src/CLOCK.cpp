@@ -1,5 +1,3 @@
-//
-// Created by YuHao Shi on 2026/11/27.
-//
-
 #include "../include/CLOCK.h"
+
+int CLOCK::t = 0;

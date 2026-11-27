@@ -8,7 +8,10 @@
 class CLOCK {
 public:
     static int t;
-    static int tick() { return t++; }
+    static int tick(int n) {
+        t += n;
+        return t;
+    }
     CLOCK() { t = 0; }
 };
 

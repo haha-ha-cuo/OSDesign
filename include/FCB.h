@@ -6,8 +6,6 @@
 #ifndef OSDESIGN_FCB_H
 #define OSDESIGN_FCB_H
 
-class FCB {
-
-};
+class FCB {};
 
 #endif //OSDESIGN_FCB_H
