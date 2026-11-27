@@ -6,6 +6,27 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(CTest)
 
+add_executable(OSDesign
+        main.cpp
+        src/PCB.cpp
+        src/FCB.cpp
+        src/Process.cpp
+        src/Dram.cpp
+        src/Core.cpp
+        src/CLOCK.cpp
+        include/CLOCK.h
+        src/CPU.cpp
+        include/CPU.h
+        src/IO.cpp
+        include/IO.h
+        src/Instruction.cpp
+        include/Instruction.h
+)
+
+target_include_directories(OSDesign PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
+
 # 代码格式化：优先使用 -DCLANG_FORMAT_EXECUTABLE=<path> 指定的版本，
 # 其次在 PATH 中查找；macOS 上再回退到 Xcode 自带的 clang-format。
 if(NOT CLANG_FORMAT_EXECUTABLE)

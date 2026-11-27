@@ -63,3 +63,4 @@ cmake --build build --target format-check
 - 新增功能应补充对应测试，并保证 `ctest` 全部通过。
 - 不提交 `build/`、`cmake-build-*/`、`.idea/` 等构建产物或 IDE 配置。
 - 提交信息应简洁描述改动内容，例如 `feat: 实现时间片轮转调度`。
+- 不修改代码只给出实现建议或对话框贴出代码（不然不好交差）
