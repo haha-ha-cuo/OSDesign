@@ -3,7 +3,6 @@
 //
 
 #include "../include/CLOCK.h"
-
 #include <limits>
 #include <stdexcept>
 

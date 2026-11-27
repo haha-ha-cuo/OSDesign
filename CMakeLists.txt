@@ -22,9 +22,22 @@ set(PROJECT_SOURCES
         include/CPU.h
         include/PS.h
         src/PS.cpp
-        include/MLFQ.h)
+        src/Simulation.cpp
+        include/Simulation.h
+        src/TUI.cpp
+        include/TUI.h)
 
+include(FetchContent)
+FetchContent_Declare(
+        ftxui
+        GIT_REPOSITORY https://github.com/ArthurSonzogni/FTXUI.git
+        GIT_TAG v7.0.0
+        GIT_SHALLOW TRUE)
+FetchContent_MakeAvailable(ftxui)
+
+find_package(Threads REQUIRED)
 add_executable(OSDesign ${PROJECT_SOURCES})
+target_link_libraries(OSDesign PRIVATE ftxui::ftxui Threads::Threads)
 
 # 把 MinGW 仍需动态加载的运行库复制到可执行文件旁，使 exe 可以直接双击运行。
 if(MINGW)
@@ -77,6 +90,15 @@ if(BUILD_TESTING)
             src/CLOCK.cpp
             src/PCB.cpp)
     add_test(NAME PSTest COMMAND PSTest)
+
+    add_executable(SimulationTest
+            tests/SimulationTest.cpp
+            src/Simulation.cpp
+            src/MLFQ.cpp
+            src/CPU.cpp
+            src/CLOCK.cpp
+            src/PCB.cpp)
+    add_test(NAME SimulationTest COMMAND SimulationTest)
 endif()
 
 # 代码格式化：优先使用 -DCLANG_FORMAT_EXECUTABLE=<path> 指定的版本，

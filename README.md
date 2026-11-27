@@ -22,7 +22,7 @@
 | 线程机制 | 用户级线程的创建、调度与撤销 |
 | 交互界面 | 命令行菜单与命令解析，支持查看进程、内存、调度等系统状态 |
 
-> 当前已完成 CMake 工程骨架与 PCB 基础实现，详见 [PCB 设计、使用与测试](docs/PCB.md)。其余功能模块将按上表持续开发。
+> 当前支持 PCB、模拟 CPU 和时钟、MLFQ 调度、优先级调度（PS）与交互式 TUI。详见 [PCB](docs/PCB.md)、[MLFQ](docs/MLFQ.md) 和 [PS](docs/PS.md) 文档。
 
 ## 技术栈
 
@@ -30,7 +30,7 @@
 - **构建工具**：CMake 3.20+
 - **代码格式化**：clang-format
 - **编译器**：GCC 11+、Clang 14+ 或 MSVC 19.30+
-- **第三方依赖**：无
+- **第三方依赖**：FTXUI v7.0.0，由 CMake 在首次配置时通过 Git 下载
 
 ## 目录结构
 
@@ -49,6 +49,7 @@ OSDesign/
 ### 环境准备
 
 - 安装 CMake 3.20 及以上版本，并确保 `cmake` 已加入 `PATH`。
+- 安装 Git，首次配置时 CMake 会下载 FTXUI。
 - 安装支持 C++20 的编译器：
   - **Windows**：Visual Studio 2022（安装「使用 C++ 的桌面开发」工作负载）
   - **macOS**：Xcode Command Line Tools（`xcode-select --install`）
@@ -70,7 +71,7 @@ OSDesign/
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
-./build/OSDesign
+./build/OSDesign --tui
 ```
 
 **Windows（PowerShell）**
@@ -78,21 +79,29 @@ cmake --build build -j
 ```powershell
 cmake -S . -B build
 cmake --build build --config Release
-.\build\Release\OSDesign.exe
+.\build\Release\OSDesign.exe --tui
 ```
 
 > 说明：使用 Makefile、Ninja 等单配置生成器时，可执行文件位于 `build/OSDesign`；使用 Visual Studio、Xcode 等多配置生成器时，可执行文件位于 `build/Release/`（或 `build/Debug/`）下。
 
-程序运行成功后会输出：
+### TUI 操作
 
-```text
-Hello and welcome to C++!
-i = 1
-i = 2
-i = 3
-i = 4
-i = 5
-```
+界面启动时，模拟时钟暂停在第 0 拍。在底部输入命令并按 Enter。用 Tab 在命令行和进程列表之间切换，用方向键浏览列表。
+
+| 命令 | 行为 |
+| --- | --- |
+| `add editor 10` | 创建一个需要 10 个 tick 的进程，进入 Q1。进程名使用单个词，tick 必须是正整数。 |
+| `step` | 暂停自动时钟并手动推进一拍。 |
+| `run` | 启动自动时钟，每 500 毫秒推进一拍。 |
+| `pause` | 暂停自动时钟。 |
+| `quit` | 退出界面。 |
+
+时钟面板显示当前 tick 和最近一拍的事件。CPU 面板显示当前 PID 和剩余时间片。进程列表保留已完成的进程，便于对照运行结果。
+
+TUI 使用 MLFQ，每个队列的时间片均为 4 tick。时间片耗尽后降一级，最低保持 Q5；
+高级队列有新进程时，在下一拍开始前抢占低级队列中的运行进程，被抢占进程回到原级队尾。
+
+直接运行 `OSDesign` 可查看批处理调度演示。
 
 ### 常见问题
 
